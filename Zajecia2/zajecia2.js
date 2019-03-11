@@ -1,4 +1,5 @@
 const http = require('http');
+const fs = require('fs');
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -6,15 +7,23 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
 
-  if(req.url == "/kontakt"){
-  	res.write("Strona kontaktowa");
-  } else if(req.url == "/test"){
-  	res.write("Strona testowa");
+  if(req.url == "/kalkulator"){
+      fs.readFile('kalkulator.html', function(err, data) {
+      res.write(data);
+      res.end();
+    })
+  } else if(req.url == "/kontakt"){
+    fs.readFile('kontakt.html', function(err, data) {
+      res.write(data);
+      res.end();
+    })
   } else {
-  	res.write("Sprobuj /test lub /kontakt");
+      fs.readFile('index.html', function(err, data) {
+      res.write(data);
+      res.end();
+    })
   }
-  
-  res.end();
+
 });
 
 server.listen(port, hostname, () => {

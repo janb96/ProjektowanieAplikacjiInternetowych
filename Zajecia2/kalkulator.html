@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+</head>
+
+<body>
+
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1>Pierwsze zajecia</h1>
+        <p>Kalkulator z mozliwoscia wyboru opcji</p>
+    </div>
+</div>
+
+<div class="container text-center">
+    <input type="text" id="liczba1">
+    <select id="opcja">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="/">/</option>
+        <option value="*">*</option>
+    </select>
+    <input type="text" id="liczba2">
+    <button onclick="policz()" type="button" class="btn btn-success">Policz</button>
+    <br/>
+    <br/>
+    <div id="demo"></div>
+</div>
+
+<script>
+
+function pobierzOperator() {
+  var x = document.getElementById("opcja").value;
+  return x;
+}
+
+function drukuj(wynik){
+    document.getElementById("demo").innerHTML = '<div class="spinner-border text-success"></div>'
+    setTimeout(drukujWynik, 1000, wynik);
+}
+
+function drukujWynik(wynik){
+    document.getElementById("demo").innerHTML = '<div class="alert alert-success">' + wynik + '</div>';
+}
+
+function drukujBlad(wynik){
+    document.getElementById("demo").innerHTML = '<div class="alert alert-danger">' + wynik + '</div>';
+}
+
+function policz() {
+    var liczba1 = document.getElementById("liczba1").value;
+    var liczba2 = document.getElementById("liczba2").value;
+    
+    if(liczba1 == "" || liczba2 == null){
+        drukujBlad("Input nie moze byc pusty");
+    } else {
+        liczba1 = parseFloat(liczba1);
+        liczba2 = parseFloat(liczba2);
+        if(isNaN(liczba1) || isNaN(liczba2)){
+            var blad = "Nie podales liczby";
+            drukujBlad(blad);
+        } else {
+            var operacja = pobierzOperator();        
+            if(operacja == "+"){
+                drukuj(liczba1 + liczba2);
+            }
+            if(operacja == "-"){
+                drukuj(liczba1 - liczba2);
+            }
+            if(operacja == "/"){
+                if(liczba2 != 0){
+                    drukuj(liczba1 / liczba2);
+                } else {
+                    drukuj("Nie mozna dzielic przez zero");
+                }
+            }
+            if(operacja == "*"){
+                drukuj(liczba1 * liczba2);
+            }   
+        } 
+    }
+}
+
+</script>
+
+</body>
+</html> 
+
