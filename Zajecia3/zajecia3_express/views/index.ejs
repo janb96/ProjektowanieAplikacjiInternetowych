@@ -5,7 +5,43 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p>Your data (Using post)</p>
+    <form action="/your_data_post" method="post">
+	    <label for="your_name">Enter name: </label>
+	    <br/>
+	    <input id="your_name" type="text" name="name" placeholder="Your name">
+	    <br/>
+	    <label for="your_name">Enter age: </label>
+	    <br/>
+	    <input id="your_age" type="number" name="age" placeholder="Your age">
+	    <br/>
+	    <input type="submit" value="Send">
+	</form>
+	<br/>
+	<p>Your data (Using get)</p>
+	<form>
+	    <label for="your_name">Enter name: </label>
+	    <br/>
+	    <input id="your_name" type="text" name="name" placeholder="Your name">
+	    <br/>
+	    <label for="your_name">Enter age: </label>
+	    <br/>
+	    <input id="your_age" type="number" name="age" placeholder="Your age">
+	    <br/>
+	    <input type="submit" value="Send">
+	</form>
+	<br/>
+	<p>Your data (Using ???????)</p>
+	<form>
+	    <label for="your_name">Enter name: </label>
+	    <br/>
+	    <input id="your_name" type="text" name="name" placeholder="Your name">
+	    <br/>
+	    <label for="your_name">Enter age: </label>
+	    <br/>
+	    <input id="your_age" type="number" name="age" placeholder="Your age">
+	    <br/>
+	    <input type="submit" value="Send">
+	</form>
   </body>
 </html>
