@@ -30,33 +30,31 @@ router.post('/', async function(req, res, next){
 
     let startDate = req.body.startDate;
     let endDate = req.body.endDate;
-    let start = new Date(startDate);
-    let end = new Date(endDate);
-    let oneDay = 24*60*60*1000;
-    let diffDays = Math.round(Math.abs((end.getTime() - start.getTime())/(oneDay)));
 
-    console.log(startDate + " " + endDate);
-
-    let idSet = new Set();
     if(startDate >= endDate){
         res.render("reservations", {alert: "Pick-up date is cannot be later than return date"});
     } else {
         let cars = await car.findAll();
-        cars.forEach(async function(car){
+        let idSet = new Set();
 
+        for(let i=0; i < cars.length; i++){
+            console.log("0 .... 0 .... ==== " + cars[i].carID);
             // Case which look like: * | * |
             let reservations1case = await reservation.findAndCountAll({where: {
                     [Op.and]: [
                         {
                             startDate: {
                                 [Op.gt]: startDate,
-                                [Op.lt]: endDate
+                                [Op.lte]: endDate
                             }
                         },
                         {
                             endDate: {
                                 [Op.gt]: endDate
                             }
+                        },
+                        {
+                            carID: cars[i].carID
                         }
                     ]
                 }});
@@ -73,6 +71,9 @@ router.post('/', async function(req, res, next){
                             endDate: {
                                 [Op.lt]: endDate
                             }
+                        },
+                        {
+                            carID: cars[i].carID
                         }
                     ]
                 }});
@@ -90,6 +91,9 @@ router.post('/', async function(req, res, next){
                                 [Op.lt]: endDate,
                                 [Op.gt]: startDate,
                             }
+                        },
+                        {
+                            carID: cars[i].carID
                         }
                     ]
                 }});
@@ -108,23 +112,48 @@ router.post('/', async function(req, res, next){
                                 [Op.gt]: endDate,
                                 [Op.gt]: startDate,
                             }
+                        },
+                        {
+                            carID: cars[i].carID
                         }
                     ]
                 }});
 
-            console.log("1 case: " + reservations1case.count);
-            console.log("2 case: " + reservations2case.count);
-            console.log("3 case: " + reservations3case.count);
-            console.log("4 case: " + reservations4case.count);
+            // Case which look like:  |  |
+            //                        *
+            let reservations5case = await reservation.findAndCountAll({where: {
+                    [Op.and]: [
+                        {
+                            startDate: new Date(endDate)
+                        },
+                        {
+                            carID: cars[i].carID
+                        }
+                    ]
+                }});
 
+            // console.log("1 case: " + reservations1case.count);
+            // console.log("2 case: " + reservations2case.count);
+            // console.log("3 case: " + reservations3case.count);
+            // console.log("4 case: " + reservations4case.count);
+            // console.log("5 case: " + reservations5case.count);
 
-            // reservation.findAll()
-            // console.log(diffDays);
-            // idSet.add(car.carID);
-        });
-        console.log(idSet);
-        // res.render("cars", {cars: cars});
-        res.render("reservations", {alert: ""});
+            if(reservations1case.count == 0
+                && reservations2case.count == 0
+                && reservations3case.count == 0
+                && reservations4case.count == 0
+                && reservations5case.count == 0){
+                idSet.add(cars[i].carID);
+            }
+        }
+
+        let idArray = await Array.from(idSet);
+
+        let carsToSend = await car.findAll({where: {
+            carID: Array.from(idArray)
+            }});
+
+        res.render("cars", { cars: carsToSend});
     }
 });
 
