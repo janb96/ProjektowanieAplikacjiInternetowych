@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add car</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Add car to database and Rental system</h1>
+    <br/>
+    <form action="/cars" method="post">
+        <div class="form-group">
+            <label for="brand">Brand: </label>
+            <input class="form-control" id="brand" type="text" name="brand" placeholder="Car brand (for example BMW)">
+        </div>
+        <div class="form-group">
+            <label for="model">Model: </label>
+            <input class="form-control" id="model" type="text" name="model" placeholder="Car model (for example 730d)">
+        </div>
+        <div class="form-group">
+            <label for="pricePerDay">Price per day: </label>
+            <input class="form-control" id="pricePerDay" type="number" name="pricePerDay" placeholder="Price per day (for example 200)">
+        </div>
+        <div class="form-group">
+            <label for="photo1">Path to the photo (exterior): </label>
+            <input class="form-control" id="photo1" type="text" name="photo1" placeholder="Path to the photo (for example src/photo/bmw_730d_exterior)">
+        </div>
+        <div class="form-group">
+            <label for="photo2">Path to the photo (interior): </label>
+            <input class="form-control" id="photo2" type="text" name="photo2" placeholder="Path to the photo (for example src/photo/bmw_730d_interior)">
+        </div>
+        <div class="form-group">
+            <label for="plates">Plates (for example WB 123XX): </label>
+            <input class="form-control" id="plates" type="text" name="plates" placeholder="Plates (for example WB 123XX)">
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary btn-block">Add car</button>
+    </form>
+    <% if(alert == "[object SequelizeInstance:Cars]"){%>
+    <div class="alert alert-success">
+        Car was added to database
+    </div>
+    <%}%>
+    <% if(alert == ""){%>
+        <div class="alert alert-danger">
+            Something go wrong, try one more time...
+        </div>
+    <%}%>
+</div>
+
+</body>
+</html>

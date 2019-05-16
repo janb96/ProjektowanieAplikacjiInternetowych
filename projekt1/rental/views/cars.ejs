@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cars list</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <% cars.forEach(function(cars) { %>
+        <div style="border-style: solid;">
+            <br/>
+            <div class="row">
+                <div class="col-6">
+                    <img height="400px" width="400px" src="<%= cars.photo1 %>">
+                    <p>Outside</p>
+                </div>
+                <div class="col-6">
+                    <img height="400px" width="400px" src="<%= cars.photo2 %>">
+                    <p>Inside</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2><%= cars.brand + " " + cars.model %></h2>
+                    <h2>Price per Day: <%= cars.pricePerDay %> PLN</h2>
+                </div>
+            </div>
+        <a href="/rent/<%= + cars.carID%>" class="btn btn-success btn-block" role="button" style="font-size: 100%">Rent this car<i class="fas fa-shopping-cart"></i></a>
+        <br/>
+        </div>
+    <% }); %>
+</div>
+
+</body>
+</html>

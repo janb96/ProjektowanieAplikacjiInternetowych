@@ -22,19 +22,6 @@ app.use(passport.session({
   cookie: {maxAge: 1000}
 }));
 
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('my_db', 'my_user', 'password', {
-  host: 'localhost',
-  port: 3306,
-  dialect: `mysql`
-});
-
-var Project = sequelize.define('Project', {
-  title: Sequelize.STRING,
-  description: Sequelize.TEXT,
-  data: Sequelize.DATE
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -46,8 +33,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 passport.use(new FacebookStrategy({
-  clientID: "0000000000000",
-  clientService: "d22f40f7b4698c49",
+  clientID: "449763849126897",
+  clientService: "2ecfe191089dc41f5180949dd76268fd",
   callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
   function (accessToken, refreshToken, profile, cb) {
