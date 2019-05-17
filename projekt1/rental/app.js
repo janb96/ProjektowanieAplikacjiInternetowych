@@ -9,7 +9,7 @@ var Strategy = require('passport-facebook').Strategy;
 
 passport.use(new Strategy({
       clientID: '2151775708272166',
-      clientSecret: '96870eb4bd942d2bcee0402ca4606d24',
+      clientSecret: '',
       callbackURL: '/return'
     },
     function(accessToken, refreshToken, profile, cb) {
