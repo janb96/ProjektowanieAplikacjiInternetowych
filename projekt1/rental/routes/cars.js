@@ -25,6 +25,20 @@ router.get('/modify', async function(req, res, next) {
     res.render("all-cars", { cars: cars, noCars: noCars});
 });
 
+router.get('/delete/:id', function(req, res, next) {
+    if(!req.isAuthenticated()){
+        res.redirect('/');
+    }
+
+    car.destroy({where:
+            {
+                carID: req.params.id
+            }
+    });
+
+    res.redirect("/cars/modify");
+});
+
 router.post('/', function(req, res, next){
     if(!req.isAuthenticated()){
         res.redirect('/');

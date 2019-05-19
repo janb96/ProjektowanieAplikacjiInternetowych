@@ -8,8 +8,8 @@ var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 
 passport.use(new Strategy({
-      clientID: '',
-      clientSecret: '',
+      clientID: 'your_facebook_id',
+      clientSecret: 'your_private_key',
       callbackURL: '/return'
     },
     function(accessToken, refreshToken, profile, cb) {
