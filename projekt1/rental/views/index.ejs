@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -12,13 +13,39 @@
 </head>
 <body>
 
-<div class="container text-center">
-  <h1 class="display-1">Rental <kbd>Car</kbd></h1>
-  <i class="fas fa-car fa-10x"></i>
+<div class="fixed-top" id="nawigacja">
+  <div class="row p-2 border border-secondary">
+    <div class="col-3">
+      <a href="/main">
+        Rental <kbd>Car</kbd>
+      </a>
+    </div>
+    <div class="col-3">
+      <a href="/????">Your Reservations</a>
+    </div>
+    <div class="col-3">
+      <a href="/reservations">Car hire</a>
+    </div>
+    <div class="col-3">
+      <a href="/logout">Logout<i class="fas fa-sign-out-alt"></i></a>
+    </div>
+  </div>
+</div>
 
+<br/>
+<br/>
+<br/>
+<br/>
+
+<div class="container text-center">
   <div class="row">
     <div class="col-12">
-      <h1><%= user.displayName%></h1>
+      <h1>Welcome, <span class="badge badge-warning"><%= user.displayName %></span>!</h1>
+      <br/>
+      <i class="fas fa-door-open fa-10x"></i>
+      <br/>
+      <br/>
+      <h1>What car do you want to drive this time?</h1>
     </div>
   </div>
 </div>

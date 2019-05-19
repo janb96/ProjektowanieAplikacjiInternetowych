@@ -13,16 +13,22 @@
 <body>
 
 <div class="container text-center">
-    <h1 class="display-1">Rental <kbd>Car</kbd></h1>
+    <br/>
+    <h1 class="display-3">Rental <kbd>Car</kbd></h1>
+    <br/>
     <i class="fas fa-car fa-10x"></i>
-
+    <br/>
+    <div class="alert alert-info">
+        <h1><strong>Info!</strong></h1>
+        <h1>If you want to use this system, you have to log-in using your Facebook account</h1>
+    </div>
+    <br/>
     <div class="row">
         <div class="col-12">
-            <% if (!user) { %>
-                <a href="/login/facebook" class="btn btn-primary btn-block" role="button" style="font-size: 200%">Log-in <i class="fab fa-facebook-square"></i></a>
-            <% } else { %>
-                <p>Hello, <%= user.username %>. View your <a href="/profile">profile</a>.</p>
-            <% } %>
+                <a href="/login/facebook" class="btn btn-primary" role="button" style="font-size: 200%">
+                    Log-in using Facebook
+                    <i class="fab fa-facebook-square"></i>
+                </a>
         </div>
     </div>
 </div>

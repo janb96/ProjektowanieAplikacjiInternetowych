@@ -15,6 +15,31 @@ router.get('/', async function(req, res, next) {
     res.render("reservations", {alert: ""});
 });
 
+router.get('/my-reservations', async function(req, res, next) {
+
+    if(!req.isAuthenticated()){
+        res.redirect('/');
+    }
+
+    let users = await user.findAll({where:
+            {
+                facebookID: req.user.id
+            }
+    });
+
+    console.log(users[0].userID);
+
+    let reservations = await reservation.findAll({where:
+            {
+                userID: users[0].userID
+            }
+    });
+
+
+
+    res.send(reservations);
+});
+
 router.get('/rent/:carID/:startDate/:endDate/:price/:facebookID', async function(req, res, next) {
     if(!req.isAuthenticated()){
         res.redirect('/');

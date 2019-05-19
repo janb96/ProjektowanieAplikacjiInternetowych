@@ -13,11 +13,6 @@ passport.use(new Strategy({
       callbackURL: '/return'
     },
     function(accessToken, refreshToken, profile, cb) {
-      // In this example, the user's Facebook profile is supplied as the user
-      // record.  In a production-quality application, the Facebook profile should
-      // be associated with a user record in the application's database, which
-      // allows for account linking and authentication with other identity
-      // providers.
       return cb(null, profile);
     }));
 
@@ -40,6 +35,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -79,23 +75,6 @@ app.get('/return',
     passport.authenticate('facebook', { failureRedirect: '/' }),
     function(req, res) {
         res.redirect('/users/add/'+req.user.id+'/'+req.user.displayName);
-    });
-
-// app.get('/profile', require('connect-ensure-login').ensureLoggedIn(),
-//     function(req, res){
-//         if(req.user == undefined){
-//             res.redirect('/');
-//         }
-//         // console.log("Test + " + req.isAuthenticated());
-//         res.render('profile', { user: req.user });
-//     });
-
-app.get('/profile',
-    function(req, res){
-        if(!req.isAuthenticated()){
-            res.redirect('/');
-        }
-        res.render('profile', { user: req.user });
     });
 
 // catch 404 and forward to error handler

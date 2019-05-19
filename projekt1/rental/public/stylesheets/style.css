@@ -1,8 +1,29 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #fff;
 }
 
-a {
-  color: #00B7FF;
+#nawigacja {
+  text-align: center;
+  font-size: 150%;
+  background-color: #f1f1f1;
+}
+
+a:link {
+  color: black;
+}
+
+a:hover {
+  color: #5bd57b;
+  text-decoration: none;
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+a:visited {
+  color: black;
+}
+
+a:visited:hover {
+  color: #5bd57b;
+  text-decoration: none;
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
 }

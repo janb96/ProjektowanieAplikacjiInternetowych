@@ -6,37 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
 
+<div class="fixed-top" id="nawigacja">
+    <div class="row p-2 border border-secondary">
+        <div class="col-3">
+            <a href="/main">
+                Rental <kbd>Car</kbd>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="/????">Your Reservations</a>
+        </div>
+        <div class="col-3">
+            <a href="/reservations">Car hire</a>
+        </div>
+        <div class="col-3">
+            <a href="/logout">Logout<i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
 <div class="container">
     <% cars.forEach(function(cars) { %>
-        <div style="border-style: solid;">
+        <div class="border">
             <br/>
             <div class="row">
-                <div class="col-6">
-                    <img height="400px" width="400px" src="<%= cars.photo1 %>">
-                    <p>Outside</p>
-                </div>
-                <div class="col-6">
-                    <img height="400px" width="400px" src="<%= cars.photo2 %>">
-                    <p>Inside</p>
+                <div class="col-12">
+                    <img class="img-fluid" src="<%= cars.photo1 %>">
+                    <br/>
+                    <p class="text-center">
+                        <span class="badge badge-secondary">Exterior</span>
+                    </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <h2><%= cars.brand + " " + cars.model %></h2>
-                    <h2>Price per Day: <%= cars.pricePerDay %> PLN</h2>
-                    <h2>Total price: <%= cars.pricePerDay * diffDays%> PLN</h2>
-                    <h2>Pick-up Date: <%= startDate %> Return Date: <%= endDate %></h2>
+                    <img class="img-fluid" src="<%= cars.photo2 %>">
+                    <br/>
+                    <p class="text-center">
+                        <span class="badge badge-secondary">Interior</span>
+                    </p>
+                    <br/>
                 </div>
             </div>
-        <a href="reservations/rent/<%= + cars.carID + "/" + startDate + "/" + endDate + "/" + cars.pricePerDay*diffDays + "/" + facebookID%>" class="btn btn-success btn-block" role="button" style="font-size: 100%">Rent this car<i class="fas fa-shopping-cart"></i></a>
+            <br/>
+            <div class="row">
+                <div class="col-6">
+                    <h3><%= cars.brand + " " + cars.model %></h3>
+                    <h3>Price per Day: <%= cars.pricePerDay %> PLN</h3>
+                    <h3>Total price: <%= cars.pricePerDay * diffDays%> PLN</h3>
+                    <h3>Pick-up Date: <%= startDate %> Return Date: <%= endDate %></h3>
+                </div>
+                <div class="col-6">
+                    <h3><%= cars.brand + " " + cars.model %></h3>
+                    <h3>Price per Day: <%= cars.pricePerDay %> PLN</h3>
+                    <h3>Total price: <%= cars.pricePerDay * diffDays%> PLN</h3>
+                    <h3>Pick-up Date: <%= startDate %> Return Date: <%= endDate %></h3>
+                </div>
+            </div>
+        <a href="reservations/rent/<%= + cars.carID + "/" + startDate + "/" + endDate + "/" + cars.pricePerDay*diffDays + "/" + facebookID%>" class="btn btn-success btn-block" role="button" style="font-size: 100%">
+            Rent this car
+            <i class="fas fa-shopping-cart"></i>
+        </a>
         <br/>
         </div>
+        <br/>
     <% }); %>
 </div>
 
