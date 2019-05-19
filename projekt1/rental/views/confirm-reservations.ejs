@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reservations list</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="fixed-top" id="nawigacja">
+    <div class="row p-2 border border-secondary">
+        <div class="col-3">
+            <a href="/admin">
+                Admin <kbd>Panel</kbd>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="/admin/manage-reservations">Manage Reservations</a>
+        </div>
+        <div class="col-3">
+            <a href="/admin/add-car">Add car</a>
+        </div>
+        <div class="col-3">
+            <a href="/main">User mode<i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<% if(noReservations){%>
+    <div class="alert alert-warning text-center">
+        <strong>Warning!</strong>
+        <p>You don't have reservations :(</p>
+    </div>
+<%}%>
+
+<div class="container">
+    <% reservations.forEach(function(reservation) { %>
+        <% if(reservation.isConfirmed){%>
+    <div class="alert alert-success">
+        <%} else {%>
+        <div class="alert alert-warning">
+            <%}%>
+            <br/>
+            <div class="row">
+                <div class="col-6">
+                    <h3><span class="badge badge-pill badge-secondary">Brand</span>: <%= reservation.brand %></h3>
+                    <h3><span class="badge badge-pill badge-secondary">Price per day</span>: <%= reservation.pricePerDay %> PLN</h3>
+                    <h3><span class="badge badge-pill badge-secondary">Pick-up Date</span>: <%= reservation.startDate %></h3>
+                </div>
+                <div class="col-6">
+                    <h3><span class="badge badge-pill badge-secondary">Model</span>: <%= reservation.model %></h3>
+                    <h3><span class="badge badge-pill badge-secondary">Total price</span>: <%= reservation.pricePerDay * reservation.diffDays%> PLN</h3>
+                    <h3><span class="badge badge-pill badge-secondary">Return Date</span>: <%= reservation.endDate %></h3>
+                </div>
+            </div>
+            <br/>
+            <% if(reservation.isConfirmed){%>
+                <%} else {%>
+                    <a href="/reservations/confirm/<%= + reservation.reservationID %>" class="btn btn-success btn-block" role="button" style="font-size: 100%">
+                        Confirm this reservation
+                    </a>
+                    <%}%>
+            <a href="/reservations/delete/<%= + reservation.reservationID %>" class="btn btn-danger btn-block" role="button" style="font-size: 100%">
+                Delete this reservation
+            </a>
+            <br/>
+        </div>
+        <br/>
+        <% }); %>
+    </div>
+
+</body>
+</html>

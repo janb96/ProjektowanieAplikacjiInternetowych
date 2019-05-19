@@ -12,7 +12,8 @@ let Reservations = sequelize.define('Reservations', {
     carID: Sequelize.STRING,
     startDate: Sequelize.DATE,
     endDate: Sequelize.DATE,
-    price: Sequelize.INTEGER
+    price: Sequelize.INTEGER,
+    isConfirmed: Sequelize.BOOLEAN
 });
 
 module.exports = Reservations;

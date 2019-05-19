@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cars list</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="fixed-top" id="nawigacja">
+    <div class="row p-2 border border-secondary">
+        <div class="col-3">
+            <a href="/admin">
+                Admin <kbd>Panel</kbd>
+            </a>
+        </div>
+        <div class="col-3">
+            <a href="/admin/manage-reservations">Manage Reservations</a>
+        </div>
+        <div class="col-3">
+            <a href="/admin/add-car">Add car</a>
+        </div>
+        <div class="col-3">
+            <a href="/main">User mode<i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<% if(noCars){%>
+    <div class="alert alert-warning text-center">
+        <strong>Warning!</strong>
+        <p>There are no cars :(</p>
+    </div>
+<%}%>
+<div class="container">
+    <% cars.forEach(function(cars) { %>
+        <div class="border">
+            <br/>
+            <h1>Car data:</h1>
+            <br/>
+            <form action="/cars/modify" method="post">
+                <div class="form-group">
+                    <label for="brand">Brand: </label>
+                    <input class="form-control" value="<%= cars.brand %>" id="brand" type="text" name="brand" placeholder="Car brand (for example BMW)">
+                </div>
+                <div class="form-group">
+                    <label for="model">Model: </label>
+                    <input class="form-control" value="<%= cars.model %>" id="model" type="text" name="model" placeholder="Car model (for example 730d)">
+                </div>
+                <div class="form-group">
+                    <label for="pricePerDay">Price per day: </label>
+                    <input class="form-control" value="<%= cars.pricePerDay %>" id="pricePerDay" type="number" name="pricePerDay" placeholder="Price per day (for example 200)">
+                </div>
+                <div class="form-group">
+                    <label for="photo1">Path to the photo (exterior): </label>
+                    <input class="form-control" value="<%= cars.photo1 %>" id="photo1" type="text" name="photo1" placeholder="Path to the photo (for example src/photo/bmw_730d_exterior)">
+                </div>
+                <div class="form-group">
+                    <label for="photo2">Path to the photo (interior): </label>
+                    <input class="form-control" value="<%= cars.photo2 %>" id="photo2" type="text" name="photo2" placeholder="Path to the photo (for example src/photo/bmw_730d_interior)">
+                </div>
+                <div class="form-group">
+                    <label for="plates">Plates (for example WB 123XX): </label>
+                    <input class="form-control" value="<%= cars.plates %>" id="plates" type="text" name="plates" placeholder="Plates (for example WB 123XX)">
+                </div>
+                <div class="form-group">
+                    <label for="carID">Car id:</label>
+                    <input class="form-control" value="<%= cars.carID %>" id="carID" type="number" name="carID">
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-primary btn-block">Modify car</button>
+            </form>
+            <br/>
+            <a href="/cars/delete/<%= + cars.carID %>" class="btn btn-danger btn-block" role="button" style="font-size: 100%">
+                Delete this car
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <br/>
+        </div>
+        <br/>
+    <% }); %>
+</div>
+
+</body>
+</html>

@@ -5,14 +5,49 @@ var user = require('../models/users.js');
 var car = require('../models/cars.js');
 var sequelize = require('../connect.js');
 var Sequelize = require('sequelize');
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
 
 
-router.get('/', async function(req, res, next) {
+router.get('/', function(req, res, next) {
     if(!req.isAuthenticated()){
         res.redirect('/');
     }
+
     res.render("reservations", {alert: ""});
+});
+
+router.get('/delete/:id', function(req, res, next) {
+    if(!req.isAuthenticated()){
+        res.redirect('/');
+    }
+
+    reservation.destroy({where:
+            {
+                reservationID: req.params.id
+            }
+    });
+
+    res.redirect("/");
+});
+
+router.get('/confirm/:id', function(req, res, next) {
+    if(!req.isAuthenticated()){
+        res.redirect('/');
+    }
+
+    reservation.update(
+        {
+            isConfirmed: true
+        },
+        {
+            where:
+            {
+                reservationID: req.params.id
+            }
+        }
+    );
+
+    res.redirect("/admin/manage-reservations");
 });
 
 router.get('/my-reservations', async function(req, res, next) {
@@ -35,9 +70,47 @@ router.get('/my-reservations', async function(req, res, next) {
             }
     });
 
+    let my_reservations = [];
 
+    for(let i = 0; i < reservations.length; i++){
+        let cars = await car.findAll( {where:
+                {
+                    carID: reservations[i].carID
+                }
+        });
 
-    res.send(reservations);
+        let start = new Date(reservations[i].startDate);
+        let end = new Date(reservations[i].endDate);
+        let oneDay = 24*60*60*1000;
+        let diffDays = Math.round(Math.abs((end.getTime() - start.getTime())/(oneDay)));
+
+        let my_reservation = {
+            reservationID: reservations[i].reservationID,
+            brand: cars[0].brand,
+            model: cars[0].model,
+            price: reservations[i].price,
+            pricePerDay: cars[0].pricePerDay,
+            diffDays: diffDays,
+            startDate: reservations[i].startDate,
+            endDate: reservations[i].endDate,
+            isConfirmed: reservations[i].isConfirmed
+        };
+
+        my_reservations.push(my_reservation);
+
+    }
+
+    let noReservations = false;
+
+    if(my_reservations.length == 0){
+        noReservations = true;
+    }
+
+    res.render("my-reservations",
+        {
+            noReservations: noReservations,
+            reservations: my_reservations
+        });
 });
 
 router.get('/rent/:carID/:startDate/:endDate/:price/:facebookID', async function(req, res, next) {
@@ -57,11 +130,12 @@ router.get('/rent/:carID/:startDate/:endDate/:price/:facebookID', async function
                 carID: req.params.carID,
                 startDate: req.params.startDate,
                 endDate: req.params.endDate,
-                price: req.params.price
+                price: req.params.price,
+                isConfirmed: false
             });
         }
 
-        res.render("reservations", {alert: "OKSSS"});
+        res.redirect('/reservations/my-reservations');
     } else {
         res.redirect('/');
     }
@@ -198,7 +272,14 @@ router.post('/', async function(req, res, next){
             carID: Array.from(idArray)
             }});
 
+        let noCars = false;
+
+        if(carsToSend.length == 0){
+            noCars = true;
+        }
+
         res.render("cars", {
+            noCars: noCars,
             cars: carsToSend,
             startDate: startDate,
             endDate: endDate,

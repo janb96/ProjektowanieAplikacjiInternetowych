@@ -21,7 +21,7 @@
             </a>
         </div>
         <div class="col-3">
-            <a href="/????">Your Reservations</a>
+            <a href="/reservations/my-reservations">Your Reservations</a>
         </div>
         <div class="col-3">
             <a href="/reservations">Car hire</a>
@@ -37,6 +37,12 @@
 <br/>
 <br/>
 
+<% if(noCars){%>
+<div class="alert alert-warning text-center">
+    <strong>Warning!</strong>
+    <p>There are no free cars during this period :(</p>
+</div>
+<%}%>
 <div class="container">
     <% cars.forEach(function(cars) { %>
         <div class="border">
@@ -45,38 +51,32 @@
                 <div class="col-12">
                     <img class="img-fluid" src="<%= cars.photo1 %>">
                     <br/>
-                    <p class="text-center">
-                        <span class="badge badge-secondary">Exterior</span>
-                    </p>
                 </div>
             </div>
+            <br/>
             <div class="row">
                 <div class="col-12">
                     <img class="img-fluid" src="<%= cars.photo2 %>">
-                    <br/>
-                    <p class="text-center">
-                        <span class="badge badge-secondary">Interior</span>
-                    </p>
                     <br/>
                 </div>
             </div>
             <br/>
             <div class="row">
                 <div class="col-6">
-                    <h3><%= cars.brand + " " + cars.model %></h3>
-                    <h3>Price per Day: <%= cars.pricePerDay %> PLN</h3>
-                    <h3>Total price: <%= cars.pricePerDay * diffDays%> PLN</h3>
-                    <h3>Pick-up Date: <%= startDate %> Return Date: <%= endDate %></h3>
+                    <h3>
+                        <span class="badge badge-pill badge-secondary">Brand</span>: <%= cars.brand %></h3>
+                    <h3><span class="badge badge-pill badge-secondary">Price per day</span>: <%= cars.pricePerDay %> PLN</h3>
+                    <h3><span class="badge badge-pill badge-secondary">Pick-up Date</span>: <%= startDate %></h3>
                 </div>
                 <div class="col-6">
-                    <h3><%= cars.brand + " " + cars.model %></h3>
-                    <h3>Price per Day: <%= cars.pricePerDay %> PLN</h3>
-                    <h3>Total price: <%= cars.pricePerDay * diffDays%> PLN</h3>
-                    <h3>Pick-up Date: <%= startDate %> Return Date: <%= endDate %></h3>
+                    <h3><span class="badge badge-pill badge-secondary">Model</span>: <%= cars.model %></h3>
+                    <h3><span class="badge badge-pill badge-secondary">Total price</span>: <%= cars.pricePerDay * diffDays%> PLN</h3>
+                    <h3><span class="badge badge-pill badge-secondary">Return Date</span>: <%= endDate %></h3>
                 </div>
             </div>
-        <a href="reservations/rent/<%= + cars.carID + "/" + startDate + "/" + endDate + "/" + cars.pricePerDay*diffDays + "/" + facebookID%>" class="btn btn-success btn-block" role="button" style="font-size: 100%">
-            Rent this car
+            <br/>
+            <a href="reservations/rent/<%= + cars.carID + "/" + startDate + "/" + endDate + "/" + cars.pricePerDay*diffDays + "/" + facebookID%>" class="btn btn-success btn-block" role="button" style="font-size: 100%">
+                Rent this car
             <i class="fas fa-shopping-cart"></i>
         </a>
         <br/>
