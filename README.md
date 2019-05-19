@@ -1,4 +1,4 @@
-### Projekt indywidualny znajduje się w katalogu projekt1/rental
+# Projekt indywidualny znajduje się w katalogu `projekt1/rental`
 
 ## Użyte technologie:
 
