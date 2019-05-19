@@ -27,12 +27,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 text-center">
+                <div class="col-12">
                     <h2><%= cars.brand + " " + cars.model %></h2>
                     <h2>Price per Day: <%= cars.pricePerDay %> PLN</h2>
+                    <h2>Total price: <%= cars.pricePerDay * diffDays%> PLN</h2>
+                    <h2>Pick-up Date: <%= startDate %> Return Date: <%= endDate %></h2>
                 </div>
             </div>
-        <a href="/rent/<%= + cars.carID%>" class="btn btn-success btn-block" role="button" style="font-size: 100%">Rent this car<i class="fas fa-shopping-cart"></i></a>
+        <a href="reservations/rent/<%= + cars.carID + "/" + startDate + "/" + endDate + "/" + cars.pricePerDay*diffDays + "/" + facebookID%>" class="btn btn-success btn-block" role="button" style="font-size: 100%">Rent this car<i class="fas fa-shopping-cart"></i></a>
         <br/>
         </div>
     <% }); %>

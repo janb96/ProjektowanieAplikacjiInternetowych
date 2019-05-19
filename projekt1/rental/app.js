@@ -8,7 +8,7 @@ var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 
 passport.use(new Strategy({
-      clientID: '2151775708272166',
+      clientID: '',
       clientSecret: '',
       callbackURL: '/return'
     },
